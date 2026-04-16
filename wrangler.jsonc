@@ -6,7 +6,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "my-react-app",
 	"compatibility_date": "2026-04-16",
-	"pages_build_output_dir": "./dist",
+	"pages_build_output_dir": "./build",
 	"observability": {
 		"enabled": true
 	},
