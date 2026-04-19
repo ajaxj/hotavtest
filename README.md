@@ -1,48 +1,16 @@
-# hotavtest
 
-This template should help get you started developing with Vue 3 in Vite.
+如何发布vue 到 cloudflare pages vue pages 模板：
+https://developers.cloudflare.com/pages/framework-guides/deploy-a-vue-site/
 
-## Recommended IDE Setup
+我对应的github项目在：https://github.com/ajaxj/hotavtest.git 分支 vue-pages-template
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+$ pnpm create cloudflare@latest my-vue-template --framework=vue --platform=pages
 
-## Recommended Browser Setup
+cf里面配置
+Production branch vue-pages-template  //分支
+Build command npm run build
+Build directory dist
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+注意在根目录（高级）里面添写　my-vue-template，因为开发目录不在根目录
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+--------------------------------------------------------------
