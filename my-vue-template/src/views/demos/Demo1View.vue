@@ -1,12 +1,13 @@
 <script setup lang="ts">
-// import TheWelcome from '../components/TheWelcome.vue'
-//  import { Button } from '../components/ui/button'
+
 </script>
 
 <template>
    <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div class="bg-muted/50 aspect-video rounded-xl" />
+          <div class="bg-muted/50 aspect-video rounded-xl">
+            <h1>Demo1</h1>
+          </div>
           <div class="bg-muted/50 aspect-video rounded-xl" />
           <div class="bg-muted/50 aspect-video rounded-xl" />
         </div>
