@@ -29,6 +29,16 @@ defineProps<{
     }[]
   }[]
 }>()
+
+ import { useSidebar } from "@/components/ui/sidebar"
+
+const { setOpenMobile, isMobile } = useSidebar() 
+
+const closeMobileSidebar = () => {
+  if (isMobile.value) {
+    setOpenMobile(false)
+  }
+}
 </script>
 
 <template>
@@ -57,7 +67,7 @@ defineProps<{
                   <!-- <a :href="subItem.url"> -->
                     <!-- <span>{{ subItem.title }}</span> -->
                   <!-- </a> -->
-                       <RouterLink :to="subItem.url">{{subItem.title}}</RouterLink>
+                       <RouterLink :to="subItem.url" @click="closeMobileSidebar">{{subItem.title}}</RouterLink>
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
             </SidebarMenuSub>
