@@ -5,7 +5,7 @@ import TheWelcome from '../components/TheWelcome.vue'
 
 <template>
   <main>
-    <Button>Click me</Button>
+    <Button>Shadcn UI</Button>
     <TheWelcome />
   </main>
 </template>
