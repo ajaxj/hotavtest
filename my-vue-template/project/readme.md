@@ -15,3 +15,10 @@ https://www.shadcn-vue.com/
 
 
 ~~~
+
+
+## page发布测试
+~~~
+https://hotav-vue.pages.dev/
+
+~~~
