@@ -10,4 +10,8 @@ go build ../api/d1api.go
 ~~~
 pnpm add axios
 
+ui:
+https://www.shadcn-vue.com/
+
+
 ~~~

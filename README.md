@@ -13,4 +13,17 @@ Build directory dist
 
 注意在根目录（高级）里面添写　my-vue-template，因为开发目录不在根目录
 
+
+手动安装 shadui vue
+
+npm install class-variance-authority clsx tailwind-merge lucide-vue-next tw-animate-css
+
+npm install reka-ui
+
+npm install @tailwindcss/vite
+
+参考 /home/ajajx/projects/aliyun_code/myts/templates/my-vue-app
+把　lib/ components/ui  style.css components.json 复自进项目
+修改　vite.config.ts,tsconfig.app.json
+
 --------------------------------------------------------------
