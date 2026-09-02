@@ -1,0 +1,98 @@
+这个项目如何使用router
+11:03
+当前项目路由情况
+经过检查，这个项目（spbackend）是一个 React 19 + Vite 的前端项目，目前还没有安装任何前端路由库。所有内容都在单一的 App.tsx 组件中渲染。
+
+yarn.lock 里出现的 router@^2.2.0 是 Express 的间接依赖，不是前端路由用的。
+
+如何添加路由
+React 生态中最主流的路由方案是 React Router。以下是集成步骤：
+
+1. 安装 React Router
+bash
+
+yarn add react-router-dom
+2. 基本使用方式
+React Router 有两种使用模式：组件式 <Routes> / <Route> 和 数据式 createBrowserRouter。推荐使用后者（数据路由），功能更强。
+
+方式一：数据路由（推荐）
+tsx
+
+
+
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+
+import "./index.css"
+import { ThemeProvider } from "@/components/theme-provider.tsx"
+import App from "./App.tsx"
+import About from "./pages/About.tsx"
+import NotFound from "./pages/NotFound.tsx"
+
+const router = createBrowserRouter([
+  { path: "/", element: <App /> },
+  { path: "/about", element: <About /> },
+  { path: "*", element: <NotFound /> },
+])
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </StrictMode>
+)
+方式二：组件式路由
+tsx
+
+
+
+import { Routes, Route, Link } from "react-router-dom"
+
+export function App() {
+  return (
+    <div>
+      <nav>
+        <Link to="/">首页</Link>
+        <Link to="/about">关于</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
+  )
+}
+3. 常用 API 速查
+API	用途
+useNavigate()	编程式导航：navigate('/about')
+useParams()	获取 URL 参数：const { id } = useParams()
+useSearchParams()	获取查询字符串
+useLinkClickHandler()	自定义链接行为
+<Link to="...">	声明式导航链接
+<Outlet />	渲染子路由（用于嵌套布局）
+4. 嵌套路由示例
+tsx
+
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,       // 公共布局（侧边栏/导航）
+    children: [
+      { index: true, element: <Home /> },
+      { path: "users", element: <Users /> },
+      { path: "users/:id", element: <UserDetail /> },
+    ],
+  },
+])
+在 Layout 组件中用 <Outlet /> 渲染子路由内容。
+
+总结
+项目现状	建议
+无路由库	安装 react-router-dom
+单页面组件	拆分为 src/pages/ 目录
+入口文件 main.tsx	用 RouterProvider 包裹根组件
