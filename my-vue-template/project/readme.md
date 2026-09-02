@@ -21,4 +21,7 @@ https://www.shadcn-vue.com/
 ~~~
 https://hotav-vue.pages.dev/
 
+
+同时有一个练习项目在 /home/ajajx/projects/aliyun_code/myts/templates/my-vue-app
+
 ~~~
