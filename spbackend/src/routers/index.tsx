@@ -4,7 +4,7 @@ import About from "@/pages/About.tsx"
 import NotFound from "@/pages/NotFound.tsx"
 import { Login } from "@/pages/Login.tsx"
 import Layout from "@/layouts/default.tsx"
-// import { ProtectedRoute } from "@/components/ProtectedRoute"
+import { ProtectedRoute } from "@/components/ProtectedRoute"
 import TaskList from "@/pages/sys/TaskList.tsx"
 
 export const router = createBrowserRouter([
@@ -19,25 +19,25 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: (
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <App />
-          // </ProtectedRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "/about",
         element: (
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <About />
-          // </ProtectedRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "/sys/task-list",
         element: (
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <TaskList />
-          // </ProtectedRoute>
+          </ProtectedRoute>
         ),
       },
     ],
