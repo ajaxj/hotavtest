@@ -1,3 +1,5 @@
+
+
 import { AppSidebar } from "@/components/dashboard07/app-sidebar"
 import {
   Breadcrumb,
@@ -15,10 +17,10 @@ import {
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
 import { Outlet } from "react-router-dom"
-
+import { useAuth } from "@/hooks/use-auth"
 
 export default function Layout() {
-
+  const { logout } = useAuth()
 
   return (
     <SidebarProvider>
@@ -34,7 +36,9 @@ export default function Layout() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/">Sport管理</BreadcrumbLink>
+                  <BreadcrumbLink href="/">
+                    Sport管理
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
@@ -42,17 +46,13 @@ export default function Layout() {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-            <Button
-              variant="ghost"
-              size="sm"
-
-              className="ml-auto"
-            >
+            <Button variant="ghost" size="sm" onClick={logout} className="ml-auto">
               Logout
             </Button>
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+
           <Outlet />
           {/*<div className="grid auto-rows-min gap-4 md:grid-cols-3">*/}
           {/*  <div className="aspect-video rounded-xl bg-muted/50" />*/}
