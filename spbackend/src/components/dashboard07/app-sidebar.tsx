@@ -92,17 +92,17 @@ const data = {
       ],
     },
     {
-      title: "Temp",
+      title: "Titan",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "分类列表",
-          url: "/temp/temp-category-list",
+          title: "联赛列表",
+          url: "/titan/league-list",
         },
-          {
-          title: "电影列表",
-          url: "/temp/temp-movie-list",
+        {
+          title: "Team列表",
+          url: "/titan/team-list",
         },
         {
           title: "标签列表",

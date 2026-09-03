@@ -1,12 +1,14 @@
 // API 基础地址
-// export const API_BASE_URL = "https://data.zhibo20.com";
-// export const API_BASE_URL = "https://gin1.zhibo20.com";
-export const API_BASE_URL = "http://gin2.marstommy.serv00.net"
+export const API_BASE_URL = "http://localhost:42106";
+// export const API_BASE_URL = "http://gin2.marstommy.serv00.net"
 
 // API 接口端点常量
 export const API_ENDPOINTS = {
   LOGIN: `${API_BASE_URL}/auth/login`,
   TASKS: `${API_BASE_URL}/v1/tasks`,
+  LOG_INFOS: `${API_BASE_URL}/v1/log_infos`,
+  TITAN_TEAMS: `${API_BASE_URL}/v1/titan_teams`,
+  TITAN_LEAGUES: `${API_BASE_URL}/v1/titan_leagues`,
 }
 
 // API 请求配置选项接口，继承原生 RequestInit

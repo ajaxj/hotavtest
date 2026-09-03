@@ -6,6 +6,9 @@ import { Login } from "@/pages/Login.tsx"
 import Layout from "@/layouts/default.tsx"
 import { ProtectedRoute } from "@/components/ProtectedRoute"
 import TaskList from "@/pages/sys/TaskList.tsx"
+import LogInfoList from "@/pages/sys/LogInfoList.tsx"
+import TitanLeagueList from "@/pages/titan/TitanLeagueList.tsx"
+import TitanTeamList from "@/pages/titan/TitanTeamList.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -19,25 +22,49 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <App />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       {
         path: "/about",
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <About />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       {
         path: "/sys/task-list",
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <TaskList />
-          </ProtectedRoute>
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/sys/log-info-list",
+        element: (
+          // <ProtectedRoute>
+            <LogInfoList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/titan/league-list",
+        element: (
+          // <ProtectedRoute>
+            <TitanLeagueList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/titan/team-list",
+        element: (
+          // <ProtectedRoute>
+            <TitanTeamList />
+          // </ProtectedRoute>
         ),
       },
     ],
