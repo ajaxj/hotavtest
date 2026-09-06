@@ -1,17 +1,18 @@
-import type { TitanTeamPage } from "@/types"
-import { API_ENDPOINTS, apiFetch } from "@/lib/api.ts"
+import type { TitanTeamPage,TitanTeam } from "@/types"
+import { API_ENDPOINTS, apiFetch, handleApiResponse } from "@/lib/api.ts"
 import { useCallback, useEffect, useState } from "react"
+import { toast } from "@/components/ui/toast.tsx"
 
 /**
- * 创建 Titan 团队请求体
+ * 创建 Titan 球队请求体
  */
 export interface CreateTitanTeamPayload {
+  tid: number
   zh: string
   gb: string
   en: string
-  color: string
-  ltype: number
-  country_id: number
+  icon: string
+  pos: string
 }
 
 const fetchTitanTeams = async (
@@ -60,4 +61,129 @@ export const useTitanTeams = (pageIndex: number, pageSize: number) => {
   }, [fetch])
 
   return { data, loading, error, refetch: fetch }
+}
+
+
+export const useCreateTitanTeam = ()=>{
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+
+  /**
+   * 创建 Titan 球队
+   * @param payload - 球队数据
+   * @param onSuccess - 创建成功后的回调函数（可选）
+   */
+  const createTitanTeam = useCallback(
+    async (payload: CreateTitanTeamPayload, onSuccess?: () => void) => {
+      setLoading(true)
+      setError(null)
+      try {
+        // 构造请求体：设置默认值，展开用户数据，最后对标题去空格
+
+        const teamPayload = {
+          tid: payload.tid,
+          zh: payload.zh.trim(),
+          gb: payload.gb.trim(),
+          en: payload.en.trim(),
+          icon: payload.icon.trim(),
+          pos: payload.pos.trim(),
+        }
+
+        const res = await apiFetch(API_ENDPOINTS.TITAN_TEAMS, {
+          method: "POST",
+          body: JSON.stringify(teamPayload),
+        })
+        await handleApiResponse(res, "create Titan team team")
+        onSuccess?.()
+      } catch (err) {
+        setError(err as Error)
+        console.error("[useCreateTeam] error:", err)
+        // 显示用户友好的错误提示
+        toast.add({
+          type: "warning",
+          description: "添加 Titan 球队失败，请重试",
+        })
+      } finally {
+        setLoading(false)
+      }
+    },
+    []
+  )
+
+  return { createTitanTeam, loading, error }
+}
+
+
+export const useUpdateTitanTeam = () => {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+
+  const updateTitanTeam = useCallback(
+    async (
+      {
+        id,
+        updates,
+      }: {
+        id: number
+        updates: Partial<TitanTeam>
+      },
+      onSuccess?: () => void
+    ) => {
+      setLoading(true)
+      setError(null)
+      try {
+        // 发送 PUT 请求更新指定球队
+        const res = await apiFetch(`${API_ENDPOINTS.TITAN_TEAMS}/${id}`, {
+          method: "PUT",
+          body: JSON.stringify(updates),
+        })
+        await handleApiResponse(res, "update Titan team team")
+        onSuccess?.()
+      } catch (err) {
+        setError(err as Error)
+        console.error("[useUpdateTitanTeam] error:", err)
+        toast.add({
+          type: "warning",
+          description: "更新球队失败，请重试",
+        })
+      } finally {
+        setLoading(false)
+      }
+    },
+    []
+  )
+
+  return { updateTitanTeam, loading, error }
+}
+
+
+
+export const useDeleteTitanTeam = ()=>{
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+
+  const deleteTitanTeam = useCallback(async (id:number,onSuccess?:()=>void)=>{
+    setLoading(true)
+    setError(null)
+    try {
+      // 发送 DELETE 请求删除指定球队
+      const res = await apiFetch(`${API_ENDPOINTS.TITAN_TEAMS}/${id}`, {
+        method: "DELETE",
+      })
+      await handleApiResponse(res, "delete Titan team team")
+      onSuccess?.()
+    } catch (err) {
+      setError(err as Error)
+      console.error("[useDeleteTitanTeam] error:", err)
+      // 显示用户友好的错误提示
+      toast.add({
+        type: "warning",
+        description: "删除 Titan 球队失败，请重试",
+      })
+    } finally {
+      setLoading(false)
+    }
+  },[])
+
+  return { deleteTitanTeam, loading, error }
 }

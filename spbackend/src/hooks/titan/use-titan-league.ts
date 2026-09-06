@@ -1,4 +1,4 @@
-import type {  TitanLeaguePage } from "@/types"
+import type { TitanLeague, TitanLeaguePage } from "@/types"
 import { API_ENDPOINTS, apiFetch, handleApiResponse } from "@/lib/api.ts"
 import { useCallback, useEffect, useState } from "react"
 import { toast } from "@/components/ui/toast.tsx"
@@ -70,8 +70,8 @@ export const useCreateTitanLeague = ()=>{
   const [error, setError] = useState<Error | null>(null)
 
   /**
-   * 创建任务
-   * @param payload - 任务数据
+   * 创建 Titan 联赛
+   * @param payload - 联赛数据
    * @param onSuccess - 创建成功后的回调函数（可选）
    */
   const createTitanLeague = useCallback(
@@ -113,6 +113,48 @@ export const useCreateTitanLeague = ()=>{
   )
 
   return { createTitanLeague, loading, error }
+}
+
+export const useUpdateTitanLeague = () => {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+
+  const updateTitanLeague = useCallback(
+    async (
+      {
+        id,
+        updates,
+      }: {
+        id: number
+        updates: Partial<TitanLeague>
+      },
+      onSuccess?: () => void
+    ) => {
+      setLoading(true)
+      setError(null)
+      try {
+        // 发送 PUT 请求更新指定联赛
+        const res = await apiFetch(`${API_ENDPOINTS.TITAN_LEAGUES}/${id}`, {
+          method: "PUT",
+          body: JSON.stringify(updates),
+        })
+        await handleApiResponse(res, "update Titan league league")
+        onSuccess?.()
+      } catch (err) {
+        setError(err as Error)
+        console.error("[useUpdateTitanLeague] error:", err)
+        toast.add({
+          type: "warning",
+          description: "更新联赛失败，请重试",
+        })
+      } finally {
+        setLoading(false)
+      }
+    },
+    []
+  )
+
+  return { updateTitanLeague, loading, error }
 }
 
 

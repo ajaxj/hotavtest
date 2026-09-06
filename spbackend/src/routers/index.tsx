@@ -9,6 +9,7 @@ import TaskList from "@/pages/sys/TaskList.tsx"
 import LogInfoList from "@/pages/sys/LogInfoList.tsx"
 import TitanLeagueList from "@/pages/titan/TitanLeagueList.tsx"
 import TitanTeamList from "@/pages/titan/TitanTeamList.tsx"
+import TitanMatchList from "@/pages/titan/TitanMatchList.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +68,14 @@ export const router = createBrowserRouter([
           // </ProtectedRoute>
         ),
       },
+      {
+        path: "/titan/match-list",
+        element: (
+          // <ProtectedRoute>
+            <TitanMatchList />
+          // </ProtectedRoute>
+        ),
+      }
     ],
   },
   { path: "*", element: <NotFound /> },

@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
   LOG_INFOS: `${API_BASE_URL}/v1/log_infos`,
   TITAN_TEAMS: `${API_BASE_URL}/v1/titan_teams`,
   TITAN_LEAGUES: `${API_BASE_URL}/v1/titan_leagues`,
+  TITAN_MATCHES: `${API_BASE_URL}/v1/titan_matches`,
 }
 
 // API 请求配置选项接口，继承原生 RequestInit

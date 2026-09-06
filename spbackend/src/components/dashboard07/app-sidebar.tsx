@@ -105,8 +105,8 @@ const data = {
           url: "/titan/team-list",
         },
         {
-          title: "标签列表",
-          url: "/temp/temp-tag-list",
+          title: "比赛列表",
+          url: "/titan/match-list",
         },
 
       ],
