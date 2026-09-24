@@ -1,15 +1,15 @@
-import type { TitanTeam, TitanLeague } from "@/types"
+import type { TitanFbTeam, TitanFbLeague } from "@/types"
 
-export interface TitanMatch  {
+interface TitanFbMatch {
   id: number
   mid: number
   match_time: string
   league_id: number
-  league: TitanLeague
+  league: TitanFbLeague
   home_id: number
-  home_team: TitanTeam
+  home_team: TitanFbTeam
   away_id: number
-  away_team: TitanTeam
+  away_team: TitanFbTeam
   country_id: number
   status: number
   home_score: number
@@ -24,9 +24,11 @@ export interface TitanMatch  {
   away_corner: number
 }
 
-export interface TitanMatchPage {
-  data: TitanMatch[]
+interface TitanFbMatchPage {
+  data: TitanFbMatch[]
   total: number
   page: number
   size: number
 }
+
+export type { TitanFbMatch, TitanFbMatchPage }

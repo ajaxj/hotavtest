@@ -4,8 +4,8 @@ import {
   useDeleteTitanMatch,
   useCreateTitanMatch,
   useUpdateTitanMatch,
-} from "@/hooks/titan/use-titan-match"
-import type { TitanMatch } from "@/types"
+} from "@/hooks/titan/fb/use-match"
+import type { TitanFbMatch } from "@/types"
 // UI 组件：表格相关
 import {
   Table,
@@ -66,7 +66,7 @@ const SortIcon = ({
   )
 }
 
-export const TitanMatchTable = () => {
+export const MatchTable = () => {
   const [page, setPage] = useState(0)
   const [pageSize] = useState(15)
 
@@ -78,7 +78,7 @@ export const TitanMatchTable = () => {
   // ======== 弹窗状态 ========
   const [createDialogOpen, setCreateDialogOpen] = useState(false) // 创建联赛弹窗开关
   const [editDialogOpen, setEditDialogOpen] = useState(false) // 编辑比赛弹窗开关
-  const [editingMatch, setEditingMatch] = useState<TitanMatch | null>(null) // 当前编辑的比赛对象
+  const [editingMatch, setEditingMatch] = useState<TitanFbMatch | null>(null) // 当前编辑的比赛对象
 
   // ======== 创建比赛表单状态 ========
   const [newTitanMatchMid, setNewTitanMatchMid] = useState(0) // 新比赛ID
@@ -182,12 +182,12 @@ export const TitanMatchTable = () => {
    * 打开编辑弹窗
    * 使用对象展开创建任务副本，避免直接修改原数据
    */
-  const openEditDialog = (match: TitanMatch) => {
+  const openEditDialog = (match: TitanFbMatch) => {
     setEditingMatch({ ...match })
     setEditDialogOpen(true)
   }
 
-  //删除TitanLeague
+  //删除TitanMatch
   const handleDeleteTitanMatch = async (mid: number) => {
     await deleteTitanMatch(mid, () => {
       refetch()
@@ -353,14 +353,14 @@ export const TitanMatchTable = () => {
                 <TableCell>{match.mid}</TableCell>
                 <TableCell>{match.match_time}</TableCell>
                 <TableCell>{match.status}</TableCell>
-                <TableCell>{match.league.zh}</TableCell>
-                {/*<TableCell>{match.league_id}</TableCell>*/}
-                {/*<TableCell>{match.home_id}</TableCell>*/}
-                <TableCell>{match.home_team.zh}</TableCell>
+                {/*<TableCell>{match.league.zh}</TableCell>*/}
+                <TableCell>{match.league_id}</TableCell>
+                <TableCell>{match.home_id}</TableCell>
+                {/*<TableCell>{match.home_team.zh}</TableCell>*/}
                 <TableCell>{match.home_score}-{match.away_score}</TableCell>
-                <TableCell>{match.home_score_half}-{match.away_score_half}</TableCell>
-                {/*<TableCell>{match.away_id}</TableCell>*/}
-                <TableCell>{match.away_team.zh}</TableCell>
+                {/*<TableCell>{match.home_score_half}-{match.away_score_half}</TableCell>*/}
+                <TableCell>{match.away_id}</TableCell>
+                {/*<TableCell>{match.away_team.zh}</TableCell>*/}
                 <TableCell>
                   <div className="flex gap-1">
                     <Button

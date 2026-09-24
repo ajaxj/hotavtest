@@ -9,7 +9,7 @@
 //   "pos": ""
 // },
 
-export interface TitanTeam{
+interface TitanFbTeam {
   id: number
   tid: number
   zh: string
@@ -19,9 +19,12 @@ export interface TitanTeam{
   pos: string
 }
 
-export interface TitanTeamPage{
-  data: TitanTeam[]
+interface TitanFbTeamPage{
+  data: TitanFbTeam[]
   total: number
   page: number
   size: number
 }
+
+
+export type { TitanFbTeam, TitanFbTeamPage }

@@ -98,15 +98,39 @@ const data = {
       items: [
         {
           title: "联赛列表",
-          url: "/titan/league-list",
+          url: "/titan/fb/league-list",
         },
         {
           title: "Team列表",
-          url: "/titan/team-list",
+          url: "/titan/fb/team-list",
         },
         {
           title: "比赛列表",
-          url: "/titan/match-list",
+          url: "/titan/fb/match-list",
+        },
+
+      ],
+    },
+    {
+      title: "NowScore",
+      url: "#",
+      icon: Bot,
+      items: [
+        {
+          title: "国家列表",
+          url: "/ns/fb/country-list",
+        },
+        {
+          title: "联赛列表",
+          url: "/ns/fb/league-list",
+        },
+        {
+          title: "Team列表",
+          url: "/ns/fb/team-list",
+        },
+        {
+          title: "比赛列表",
+          url: "/ns/fb/match-list",
         },
 
       ],

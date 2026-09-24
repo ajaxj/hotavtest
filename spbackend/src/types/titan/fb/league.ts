@@ -11,7 +11,7 @@
 // },
 
 
-export interface TitanLeague{
+interface TitanFbLeague {
   id: number
   lid: number
   zh: string
@@ -22,9 +22,12 @@ export interface TitanLeague{
   country_id: number
 }
 
-export interface TitanLeaguePage{
-  data: TitanLeague[]
+interface TitanFbLeaguePage {
+  data: TitanFbLeague[]
   total: number
   page: number
   size: number
 }
+
+
+export type { TitanFbLeague, TitanFbLeaguePage }

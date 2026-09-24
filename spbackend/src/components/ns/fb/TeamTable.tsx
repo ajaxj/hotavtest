@@ -1,34 +1,39 @@
 import {
-  useTitanTeams,
-  type CreateTitanTeamPayload,
-  useDeleteTitanTeam,
-  useCreateTitanTeam,
-  useUpdateTitanTeam,
-} from "@/hooks/titan/use-titan-team"
-import type { TitanTeam } from "@/types"
+  useNsTeamsPage,
+  type CreateNsTeamPayload,
+  useDeleteNsTeam,
+  useCreateNsTeam,
+  useUpdateNsTeam,
+} from "@/hooks/ns/fb/use-team"
+import type { NsFbTeam } from "@/types"
 // UI 组件：表格相关
 import {
   Table,
-  TableHeader,
   TableBody,
   TableFooter,
-  TableHead,
   TableRow,
   TableCell,
+  TableHeader,
+  TableHead,
 } from "@/components/ui/table"
 import { useState } from "react"
 import { Button } from "@/components/ui/button.tsx"
-import { ChevronDownIcon, ChevronUpIcon, PencilIcon, PlusIcon, SearchIcon, TrashIcon } from "lucide-react"
-import { Input } from "@/components/ui/input.tsx"
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  PencilIcon,
+  PlusIcon,
+  SearchIcon,
+  TrashIcon,
+} from "lucide-react"
 import {
   Dialog,
-  DialogContent,
-  DialogFooter,
+  DialogContent, DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog.tsx"
-
+import { Input } from "@/components/ui/input.tsx"
 import { toast } from "@/components/ui/toast.tsx"
 
 
@@ -55,9 +60,7 @@ const SortIcon = ({ field, sortField, sortOrder }: { field: SortField; sortField
 }
 
 
-
-
-export const TitanTeamTable = () => {
+export const TeamTable = () => {
   const [page, setPage] = useState(0)
   const [pageSize] = useState(15)
 
@@ -67,25 +70,27 @@ export const TitanTeamTable = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc") // 排序方向，默认降序（最新在前）
 
   // ======== 弹窗状态 ========
-  const [createDialogOpen, setCreateDialogOpen] = useState(false) // 创建球队弹窗开关
+  const [createDialogOpen, setCreateDialogOpen] = useState(false) // 创建联赛弹窗开关
   const [editDialogOpen, setEditDialogOpen] = useState(false) // 编辑球队弹窗开关
-  const [editingTeam, setEditingTeam] = useState<TitanTeam | null>(null) // 当前编辑的球队对象
+  const [editingTeam, setEditingTeam] = useState<NsFbTeam | null>(null) // 当前编辑的球队对象
 
   // ======== 创建球队表单状态 ========
-  const [newTitanTeamTid, setNewTitanTeamTid] = useState(0) // 新球队ID
-  const [newTitanTeamZh, setNewTitanTeamZh] = useState("") // 新球队名字
-  const [newTitanTeamGb, setNewTitanTeamGb] = useState("") // 新球队Gb
-  const [newTitanTeamEn, setNewTitanTeamEn] = useState("") // 新球队En
-  const [newTitanTeamIcon, setNewTitanTeamIcon] = useState("") // 新球队图标
-  const [newTitanTeamPos, setNewTitanTeamPos] = useState("") // 新球队位置
+  const [newNsTeamTid, setNewNsTeamTid] = useState(0) // 新球队ID
+  const [newNsTeamZh, setNewNsTeamZh] = useState("") // 新球队名字
+  const [newNsTeamGb, setNewNsTeamGb] = useState("") // 新球队Gb
+  const [newNsTeamEn, setNewNsTeamEn] = useState("") // 新球队En
+  const [newNsTeamIcon, setNewNsTeamIcon] = useState("") // 新球队Icon
+  const [newNsTeamTag, setNewNsTeamTag] = useState(0) // 新球队Tag
 
   // ======== 调用自定义 Hooks ========
-  const { data, loading, error, refetch } = useTitanTeams(page, pageSize) //查询TitanTeam列表
-  const { deleteTitanTeam, loading: deleting } = useDeleteTitanTeam() //删除Titan球队
-  const { createTitanTeam, loading: creating } = useCreateTitanTeam() //添加Titan球队
-  const { updateTitanTeam, loading: updating } = useUpdateTitanTeam() //更新Titan球队
+  const { data, loading, error, refetch } = useNsTeamsPage(page, pageSize) //查询NS球队列表
+  const { deleteNsTeam, loading: deleting } = useDeleteNsTeam() //删除NS球队
+  const { createNsTeam, loading: creating } = useCreateNsTeam() //添加NS球队
+  const { updateNsTeam, loading: updating } = useUpdateNsTeam() //更新NS球队
 
-  const filteredTitanTeam = (data?.data || []).filter(
+  // ======== 前端搜索过滤 这里接口过来的data，需要套一个默认查询，然后再给table,好处是可以搜索，而且最后一页删除所有数据不会出错========
+  // 注意：这里只在当前已加载的页面数据内搜索，不是服务端全量搜索
+  const filteredNsTeam = (data?.data || []).filter(
     (team) => team.zh.toLowerCase().includes(searchTerm.toLowerCase())
     // ||                // 匹配标题
     // league.en?.toLowerCase().includes(searchTerm.toLowerCase())            // 匹配描述
@@ -93,11 +98,11 @@ export const TitanTeamTable = () => {
 
   // ======== 前端排序 ========
   // 使用展开运算符创建副本，避免修改原数组
-  const sortedTitanTeamList = [...filteredTitanTeam].sort((a, b) => {
+  const sortedNsTeamList = [...filteredNsTeam].sort((a, b) => {
     let comparison = 0
     switch (sortField) {
       // case "zh":
-      //   comparison = a.zh.localeCompare(b.zh)                                  // 联赛名称按字符串排序
+      //   comparison = a.zh.localeCompare(b.zh)                                  // 球队名称按字符串排序
       //   break
       case "id":
         comparison = a.id - b.id // ID按数字排序
@@ -125,28 +130,30 @@ export const TitanTeamTable = () => {
     }
   }
 
-  const handleCreateTitanTeam = async () => {
-    if (!newTitanTeamZh.trim()) return
-    if (!newTitanTeamGb.trim()) return
-    if (!newTitanTeamEn.trim()) return
+  //添加NsTeam
+  const handleCreateNsTeam = async () => {
+    if (!newNsTeamZh.trim()) return
+    if (!newNsTeamGb.trim()) return
+    if (!newNsTeamIcon.trim()) return
+    if (!newNsTeamEn.trim()) return
 
-    const payload: CreateTitanTeamPayload = {
-      tid: newTitanTeamTid,
-      zh: newTitanTeamZh,
-      gb: newTitanTeamGb,
-      en: newTitanTeamEn,
-      icon: newTitanTeamIcon,
-      pos: newTitanTeamPos,
+    const payload: CreateNsTeamPayload = {
+      tid: newNsTeamTid,
+      zh: newNsTeamZh,
+      gb: newNsTeamGb,
+      en: newNsTeamEn,
+      icon: newNsTeamIcon,
+      tag: newNsTeamTag,
     }
-    await createTitanTeam(payload, () => {
+    await createNsTeam(payload, () => {
       refetch()
       setCreateDialogOpen(false)
-      setNewTitanTeamTid(0)
-      setNewTitanTeamZh("")
-      setNewTitanTeamGb("")
-      setNewTitanTeamEn("")
-      setNewTitanTeamIcon("")
-      setNewTitanTeamPos("")
+      setNewNsTeamTid(0)
+      setNewNsTeamZh("")
+      setNewNsTeamGb("")
+      setNewNsTeamEn("")
+      setNewNsTeamIcon("")
+      setNewNsTeamTag(0)
       toast.add({
         type: "success",
         description: "添加球队成功",
@@ -154,30 +161,29 @@ export const TitanTeamTable = () => {
     })
   }
 
-  //更新TitanTeam
-  const handleEditTitanTeam = async () => {
+  //更新NsTeam
+  const handleEditNsTeam = async () => {
     if (!editingTeam) return
-    await updateTitanTeam(
-      { id: editingTeam.id, updates: editingTeam },
-      () => {
-        refetch()
-        setEditDialogOpen(false)
-        setEditingTeam(null)
-      }
-    )
+    await updateNsTeam({id:editingTeam.id,updates:editingTeam},()=>{
+      refetch()
+      setEditDialogOpen(false)
+      setEditingTeam(null)
+    })
   }
 
   /**
    * 打开编辑弹窗
    * 使用对象展开创建任务副本，避免直接修改原数据
    */
-  const openEditDialog = (team: TitanTeam) => {
+  const openEditDialog = (team: NsFbTeam) => {
     setEditingTeam({ ...team })
     setEditDialogOpen(true)
   }
 
-  const handleDeleteTitanTeam = async (id: number) => {
-    await deleteTitanTeam(id, () => {
+
+  //删除NsTeam
+  const handleDeleteNsTeam = async (id: number) => {
+    await deleteNsTeam(id, () => {
       refetch()
     })
   }
@@ -197,32 +203,32 @@ export const TitanTeamTable = () => {
         <div className="relative max-w-sm flex-1">
           <SearchIcon className="absolute top-2 left-2.5 size-3.5 text-muted-foreground" />
           <Input
-            placeholder="搜索球队..."
+            placeholder="搜索联赛..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-8" // 左侧内边距留出图标位置
           />
         </div>
 
-        {/* 创建TitanTeam弹窗 */}
+        {/* 创建TitanLeague弹窗 */}
         <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
           <DialogTrigger>
             <Button>
               <PlusIcon className="size-3.5" />
-              添加球队
+              添加联赛
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>添加球队</DialogTitle>
+              <DialogTitle>添加联赛</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <label className="text-xs font-medium">Tid</label>
+                <label className="text-xs font-medium">Lid</label>
                 <Input
                   placeholder="输入球队ID"
-                  value={newTitanTeamTid}
-                  onChange={(e) => setNewTitanTeamTid(Number(e.target.value))}
+                  value={newNsTeamTid}
+                  onChange={(e) => setNewNsTeamTid(Number(e.target.value))}
                   className="w-full"
                 />
               </div>
@@ -230,56 +236,48 @@ export const TitanTeamTable = () => {
                 <label className="text-xs font-medium">Zh</label>
                 <Input
                   placeholder="输入球队名称"
-                  value={newTitanTeamZh}
-                  onChange={(e) => setNewTitanTeamZh(e.target.value)}
+                  value={newNsTeamZh}
+                  onChange={(e) => setNewNsTeamZh(e.target.value)}
                   className="w-full"
                 />
               </div>
               <div>
                 <label className="text-xs font-medium">Gb</label>
                 <Input
-                  placeholder="输入球队Gb"
-                  value={newTitanTeamGb}
-                  onChange={(e) => setNewTitanTeamGb(e.target.value)}
+                  placeholder="输入联赛Gb"
+                  value={newNsTeamGb}
+                  onChange={(e) => setNewNsTeamGb(e.target.value)}
                   className="w-full"
                 />
               </div>
               <div>
                 <label className="text-xs font-medium">En</label>
                 <Input
-                  placeholder="输入球队En"
-                  value={newTitanTeamEn}
-                  onChange={(e) => setNewTitanTeamEn(e.target.value)}
+                  placeholder="输入联赛En"
+                  value={newNsTeamEn}
+                  onChange={(e) => setNewNsTeamEn(e.target.value)}
                   className="w-full"
                 />
               </div>
               <div>
-                <label className="text-xs font-medium">Icon</label>
+                <label className="text-xs font-medium">Color</label>
                 <Input
-                  placeholder="输入球队Icon"
-                  value={newTitanTeamIcon}
-                  onChange={(e) => setNewTitanTeamIcon(e.target.value)}
+                  placeholder="输入球队图标"
+                  value={newNsTeamIcon}
+                  onChange={(e) => setNewNsTeamIcon(e.target.value)}
                   className="w-full"
                 />
               </div>
 
-              <div>
-                <label className="text-xs font-medium">Pos</label>
-                <Input
-                  placeholder="输入球队Pos"
-                  value={newTitanTeamPos}
-                  onChange={(e) => setNewTitanTeamPos(e.target.value)}
-                  className="w-full"
-                />
-              </div>
+
             </div>
             <DialogFooter>
               {/* 提交按钮：创建中或标题为空时禁用 */}
               <Button
-                onClick={handleCreateTitanTeam}
-                disabled={creating || !newTitanTeamZh.trim()}
+                onClick={handleCreateNsTeam}
+                disabled={creating || !newNsTeamZh.trim()}
               >
-                {creating ? "创建中..." : "创建球队"}
+                {creating ? "创建中..." : "创建"}
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -301,9 +299,8 @@ export const TitanTeamTable = () => {
                 sortOrder={sortOrder}
               />
             </TableHead>
-            <TableHead
-              className="cursor-pointer hover:bg-muted/50"
-              onClick={() => handleSort("tid")}
+            <TableHead className="cursor-pointer hover:bg-muted/50"
+                       onClick={() => handleSort("tid")}
             >
               Tid{" "}
               <SortIcon
@@ -312,12 +309,11 @@ export const TitanTeamTable = () => {
                 sortOrder={sortOrder}
               />
             </TableHead>
-            <TableHead>Zh</TableHead>
             <TableHead>Gb</TableHead>
             <TableHead>En</TableHead>
             <TableHead>Icon</TableHead>
-            <TableHead>Pos</TableHead>
-
+            {/*<TableHead>Ltype</TableHead>*/}
+            {/*<TableHead>CountryId</TableHead>*/}
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -326,14 +322,24 @@ export const TitanTeamTable = () => {
           {loading ? (
             <TableRow>
               <TableCell
-                colSpan={8}
+                colSpan={7}
                 className="text-center text-muted-foreground"
               >
                 加载中...
               </TableCell>
             </TableRow>
+          ) : sortedNsTeamList.length === 0 ? (
+            // 空数据状态
+            <TableRow>
+              <TableCell
+                colSpan={7}
+                className="text-center text-muted-foreground"
+              >
+                暂无球队
+              </TableCell>
+            </TableRow>
           ) : (
-            sortedTitanTeamList.map((team) => (
+            sortedNsTeamList.map((team) => (
               <TableRow key={team.id}>
                 <TableCell>{team.id}</TableCell>
                 <TableCell>{team.tid}</TableCell>
@@ -341,7 +347,6 @@ export const TitanTeamTable = () => {
                 <TableCell>{team.gb}</TableCell>
                 <TableCell>{team.en}</TableCell>
                 <TableCell>{team.icon}</TableCell>
-                <TableCell>{team.pos}</TableCell>
                 <TableCell>
                   <div className="flex gap-1">
                     <Button
@@ -356,7 +361,7 @@ export const TitanTeamTable = () => {
                     <Button
                       size="icon-xs"
                       variant="ghost"
-                      onClick={() => handleDeleteTitanTeam(team.id)}
+                      onClick={() => handleDeleteNsTeam(team.id)}
                       disabled={deleting}
                     >
                       <TrashIcon className="size-3" />
@@ -371,7 +376,7 @@ export const TitanTeamTable = () => {
         {/* 表格底部：分页控件 */}
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={8} className="text-center">
+            <TableCell colSpan={7} className="text-center">
               <div className="flex items-center justify-center gap-2">
                 {/* 首页按钮 */}
                 <Button
@@ -422,97 +427,77 @@ export const TitanTeamTable = () => {
         </TableFooter>
       </Table>
 
-      {/* ========== 编辑球队弹窗 ========== */}
+
+      {/* ========== 编辑联赛弹窗 ========== */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>编辑球队</DialogTitle>
+            <DialogTitle>编辑联赛</DialogTitle>
           </DialogHeader>
           {/* 仅当 editingTeam 存在时渲染表单 */}
           {editingTeam && (
             <div className="space-y-4">
+
+
               <div>
-                <label className="text-xs font-medium">Tid</label>
+                <label className="text-xs font-medium">Lid</label>
                 <Input
-                  placeholder="输入球队ID"
+                  placeholder="输入联赛ID"
                   value={editingTeam.tid}
-                  onChange={(e) =>
-                    setEditingTeam({
-                      ...editingTeam,
-                      tid: Number(e.target.value),
-                    })
-                  }
+                  onChange={(e) => setEditingTeam({ ...editingTeam, tid: Number(e.target.value) })}
                   className="w-full"
                 />
               </div>
               <div>
                 <label className="text-xs font-medium">Zh</label>
                 <Input
-                  placeholder="输入球队名称"
+                  placeholder="输入联赛名称"
                   value={editingTeam.zh}
-                  onChange={(e) =>
-                    setEditingTeam({ ...editingTeam, zh: e.target.value })
-                  }
+                  onChange={(e) => setEditingTeam({ ...editingTeam, zh: e.target.value })}
                   className="w-full"
                 />
               </div>
               <div>
                 <label className="text-xs font-medium">Gb</label>
                 <Input
-                  placeholder="输入球队Gb"
+                  placeholder="输入联赛Gb"
                   value={editingTeam.gb}
-                  onChange={(e) =>
-                    setEditingTeam({ ...editingTeam, gb: e.target.value })
-                  }
+                  onChange={(e) => setEditingTeam({ ...editingTeam, gb: e.target.value })}
                   className="w-full"
                 />
               </div>
               <div>
                 <label className="text-xs font-medium">En</label>
                 <Input
-                  placeholder="输入球队En"
+                  placeholder="输入联赛En"
                   value={editingTeam.en}
-                  onChange={(e) =>
-                    setEditingTeam({ ...editingTeam, en: e.target.value })
-                  }
+                  onChange={(e) => setEditingTeam({ ...editingTeam, en: e.target.value })}
                   className="w-full"
                 />
               </div>
               <div>
                 <label className="text-xs font-medium">Icon</label>
                 <Input
-                  placeholder="输入球队icon"
+                  placeholder="输入球队图标"
                   value={editingTeam.icon}
-                  onChange={(e) =>
-                    setEditingTeam({ ...editingTeam, icon: e.target.value })
-                  }
+                  onChange={(e) => setEditingTeam({ ...editingTeam, icon: e.target.value })}
                   className="w-full"
                 />
               </div>
-              <div>
-                <label className="text-xs font-medium">Pos</label>
-                <Input
-                  placeholder="输入球队位置"
-                  value={editingTeam.pos}
-                  onChange={(e) =>
-                    setEditingTeam({
-                      ...editingTeam,
-                      pos:e.target.value,
-                    })
-                  }
-                  className="w-full"
-                />
-              </div>
+
+
             </div>
+
           )}
           <DialogFooter>
             {/* 更新按钮 */}
-            <Button onClick={handleEditTitanTeam} disabled={updating}>
+            <Button onClick={handleEditNsTeam} disabled={updating}>
               {updating ? "更新中..." : "更新"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
     </div>
   )
 }

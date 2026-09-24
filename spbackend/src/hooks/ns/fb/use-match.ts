@@ -1,15 +1,17 @@
+
+
 import type {
-  TitanMatch,
-  TitanMatchPage,
+  NsFbMatch,
+  NsFbMatchPage,
 } from "@/types"
 import { API_ENDPOINTS, apiFetch, handleApiResponse } from "@/lib/api.ts"
 import { useCallback, useEffect, useState } from "react"
 import { toast } from "@/components/ui/toast.tsx"
 
 /**
- * 创建 Titan 比赛请求体
+ * 创建 NS 比赛请求体
  */
-export interface CreateTitanMatchPayload {
+export interface CreateNsMatchPayload {
   mid: number
   match_time: string
   league_id: number
@@ -17,8 +19,8 @@ export interface CreateTitanMatchPayload {
   away_id: number
   // country_id: number
   status: number
-  // home_score: number
-  // away_score: number
+  home_score: number
+  away_score: number
   // home_score_half: number
   // away_score_half: number
   // home_red: number
@@ -29,23 +31,23 @@ export interface CreateTitanMatchPayload {
   // away_corner: number
 }
 
-const fetchTitanMatches = async (
+const fetchNsMatches = async (
   page: number = 0,
   pageSize: number = 10
-): Promise<TitanMatchPage> => {
+): Promise<NsFbMatchPage> => {
   // 构造请求 URL，后端页码从 1 开始，所以 page + 1
-  const url = `${API_ENDPOINTS.TITAN_MATCHES}?page=${page + 1}&size=${pageSize}`
+  const url = `${API_ENDPOINTS.NS_FB_MATCHES}?page=${page + 1}&size=${pageSize}`
   const response = await apiFetch(url, { method: "GET" })
   if (!response.ok) {
-    throw new Error(`获取 Titan 比赛列表失败，状态码：${response.status}`)
+    throw new Error(`获取 NS 比赛列表失败，状态码：${response.status}`)
   }
 
   return response.json()
 }
 
-export const useTitanMatches = (pageIndex: number, pageSize: number) => {
+export const useNsMatchesPage = (pageIndex: number, pageSize: number) => {
   // 任务分页数据状态
-  const [data, setData] = useState<TitanMatchPage | null>(null)
+  const [data, setData] = useState<NsFbMatchPage | null>(null)
   // 加载中状态
   const [loading, setLoading] = useState(false)
   // 错误信息状态
@@ -56,7 +58,7 @@ export const useTitanMatches = (pageIndex: number, pageSize: number) => {
     setLoading(true)
     setError(null)
     try {
-      const result = await fetchTitanMatches(pageIndex, pageSize)
+      const result = await fetchNsMatches(pageIndex, pageSize)
       setData(result)
     } catch (err) {
       setError(err as Error)
@@ -77,17 +79,17 @@ export const useTitanMatches = (pageIndex: number, pageSize: number) => {
   return { data, loading, error, refetch: fetch }
 }
 
-export const useCreateTitanMatch = () => {
+export const useCreateNsMatch = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   /**
-   * 创建 Titan 比赛
+   * 创建 NS 比赛
    * @param payload - 比赛数据
    * @param onSuccess - 创建成功后的回调函数（可选）
    */
-  const createTitanMatch = useCallback(
-    async (payload: CreateTitanMatchPayload, onSuccess?: () => void) => {
+  const createNsMatch = useCallback(
+    async (payload: CreateNsMatchPayload, onSuccess?: () => void) => {
       setLoading(true)
       setError(null)
       try {
@@ -113,19 +115,19 @@ export const useCreateTitanMatch = () => {
           // country_id: payload.country_id,
         }
 
-        const res = await apiFetch(API_ENDPOINTS.TITAN_MATCHES, {
+        const res = await apiFetch(API_ENDPOINTS.NS_FB_MATCHES, {
           method: "POST",
           body: JSON.stringify(matchPayload),
         })
-        await handleApiResponse(res, "create Titan match match")
+        await handleApiResponse(res, "create NS match match")
         onSuccess?.()
       } catch (err) {
         setError(err as Error)
-        console.error("[useCreateTitanMatch] error:", err)
+        console.error("[useCreateNsMatch] error:", err)
         // 显示用户友好的错误提示
         toast.add({
           type: "warning",
-          description: "添加比赛失败，请重试",
+          description: "添加NS比赛失败，请重试",
         })
       } finally {
         setLoading(false)
@@ -134,21 +136,21 @@ export const useCreateTitanMatch = () => {
     []
   )
 
-  return { createTitanMatch, loading, error }
+  return { createNsMatch, loading, error }
 }
 
-export const useUpdateTitanMatch = () => {
+export const useUpdateNsMatch = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
-  const updateTitanMatch = useCallback(
+  const updateNsMatch = useCallback(
     async (
       {
-        id,
+        mid,
         updates,
       }: {
-        id: number
-        updates: Partial<TitanMatch>
+        mid: number
+        updates: Partial<NsFbMatch>
       },
       onSuccess?: () => void
     ) => {
@@ -156,18 +158,18 @@ export const useUpdateTitanMatch = () => {
       setError(null)
       try {
         // 发送 PUT 请求更新指定比赛
-        const res = await apiFetch(`${API_ENDPOINTS.TITAN_MATCHES}/${id}`, {
+        const res = await apiFetch(`${API_ENDPOINTS.NS_FB_MATCHES}/${mid}`, {
           method: "PUT",
           body: JSON.stringify(updates),
         })
-        await handleApiResponse(res, "update Titan match match")
+        await handleApiResponse(res, "update NS match match")
         onSuccess?.()
       } catch (err) {
         setError(err as Error)
-        console.error("[useUpdateTitanMatch] error:", err)
+        console.error("[useUpdateNsMatch] error:", err)
         toast.add({
           type: "warning",
-          description: "更新比赛失败，请重试",
+          description: "更新NS比赛失败，请重试",
         })
       } finally {
         setLoading(false)
@@ -176,31 +178,31 @@ export const useUpdateTitanMatch = () => {
     []
   )
 
-  return { updateTitanMatch, loading, error }
+  return { updateNsMatch, loading, error }
 }
 
-export const useDeleteTitanMatch = () => {
+export const useDeleteNsMatch = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
-  const deleteTitanMatch = useCallback(
+  const deleteNsMatch = useCallback(
     async (id: number, onSuccess?: () => void) => {
       setLoading(true)
       setError(null)
       try {
         // 发送 DELETE 请求删除指定比赛
-        const res = await apiFetch(`${API_ENDPOINTS.TITAN_MATCHES}/${id}`, {
+        const res = await apiFetch(`${API_ENDPOINTS.NS_FB_MATCHES}/${id}`, {
           method: "DELETE",
         })
-        await handleApiResponse(res, "delete Titan match match")
+        await handleApiResponse(res, "delete NS match match")
         onSuccess?.()
       } catch (err) {
         setError(err as Error)
-        console.error("[useDeleteTitanMatch] error:", err)
+        console.error("[useDeleteNsMatch] error:", err)
         // 显示用户友好的错误提示
         toast.add({
           type: "warning",
-          description: "删除 Titan 比赛失败，请重试",
+          description: "删除NS比赛失败，请重试",
         })
       } finally {
         setLoading(false)
@@ -209,5 +211,5 @@ export const useDeleteTitanMatch = () => {
     []
   )
 
-  return { deleteTitanMatch, loading, error }
+  return { deleteNsMatch, loading, error }
 }

@@ -4,12 +4,14 @@ import About from "@/pages/About.tsx"
 import NotFound from "@/pages/NotFound.tsx"
 import { Login } from "@/pages/Login.tsx"
 import Layout from "@/layouts/default.tsx"
-import { ProtectedRoute } from "@/components/ProtectedRoute"
+// import { ProtectedRoute } from "@/components/ProtectedRoute"
 import TaskList from "@/pages/sys/TaskList.tsx"
 import LogInfoList from "@/pages/sys/LogInfoList.tsx"
-import TitanLeagueList from "@/pages/titan/TitanLeagueList.tsx"
-import TitanTeamList from "@/pages/titan/TitanTeamList.tsx"
-import TitanMatchList from "@/pages/titan/TitanMatchList.tsx"
+import TitanLeagueList from "@/pages/titan/fb/LeagueList.tsx"
+import NsLeagueList from "@/pages/ns/fb/LeagueList.tsx"
+import TeamList from "@/pages/titan/fb/TeamList.tsx"
+import MatchList from "@/pages/titan/fb/MatchList.tsx"
+import CountryList from "@/pages/ns/fb/CountryList.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -53,7 +55,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/titan/league-list",
+        path: "/titan/fb/league-list",
         element: (
           // <ProtectedRoute>
             <TitanLeagueList />
@@ -61,21 +63,53 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/titan/team-list",
+        path: "/titan/fb/team-list",
         element: (
           // <ProtectedRoute>
-            <TitanTeamList />
+            <TeamList />
           // </ProtectedRoute>
         ),
       },
       {
-        path: "/titan/match-list",
+        path: "/titan/fb/match-list",
         element: (
           // <ProtectedRoute>
-            <TitanMatchList />
+            <MatchList />
           // </ProtectedRoute>
         ),
-      }
+      },
+      {
+        path: "/ns/fb/country-list",
+        element: (
+          // <ProtectedRoute>
+            <CountryList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/ns/fb/league-list",
+        element: (
+          // <ProtectedRoute>
+            <NsLeagueList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/ns/fb/team-list",
+        element: (
+          // <ProtectedRoute>
+            <TeamList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/ns/fb/match-list",
+        element: (
+          // <ProtectedRoute>
+            <MatchList />
+          // </ProtectedRoute>
+        ),
+      },
     ],
   },
   { path: "*", element: <NotFound /> },
