@@ -82,7 +82,7 @@ export const TempCategoryTable = () => {
 
 
   // ======== 调用自定义 Hooks ========
-  const { data, loading, error, refetch } = useTempCategorys(page, pageSize) //查询分类列表
+  const { data, loading, error, refetch } = useTempCategorys(page, pageSize,1) //查询分类列表
   const { deleteTempCategory, loading: deleting } = useDeleteTempCategory() //删除分类
   const { createTempCategory, loading: creating } = useCreateTempCategory() //添加分类
   const { updateTempCategory, loading: updating } = useUpdateTempCategory() //更新分类
@@ -203,7 +203,7 @@ export const TempCategoryTable = () => {
             className="pl-8" // 左侧内边距留出图标位置
           />
         </div>
-
+        <h1 className="text-2xl font-bold">Src1的分类列表</h1>
         {/* 创建TempCategory弹窗 */}
         <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
           <DialogTrigger>

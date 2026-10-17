@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/dialog.tsx"
 import { Input } from "@/components/ui/input.tsx"
 import { toast } from "@/components/ui/toast.tsx"
+import { Link } from "react-router-dom"
 
 /** 可排序的字段类型 */
 type SortField = "id" | "src"
@@ -86,7 +87,7 @@ export const TempMovieTable = () => {
   const [newTempMovieStatus, setNewTempMovieStatus] = useState(0) // 新电影状态，默认待处理
 
   // ======== 调用自定义 Hooks ========
-  const { data, loading, error, refetch } = useTempMovies(page, pageSize) //查询电影列表
+  const { data, loading, error, refetch } = useTempMovies(page, pageSize,1) //查询电影列表
   const { deleteTempMovie, loading: deleting } = useDeleteTempMovie() //删除电影
   const { createTempMovie, loading: creating } = useCreateTempMovie() //添加电影
   const { updateTempMovie, loading: updating } = useUpdateTempMovie() //更新电影
@@ -206,7 +207,7 @@ export const TempMovieTable = () => {
             className="pl-8" // 左侧内边距留出图标位置
           />
         </div>
-
+        <h1 className="text-2xl font-bold">Src1的电影列表</h1>
         {/* 创建TempMovie弹窗 */}
         <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
           <DialogTrigger>
@@ -288,7 +289,9 @@ export const TempMovieTable = () => {
               />
             </TableHead>
             <TableHead>Name</TableHead>
-            <TableHead>FetchUrl</TableHead>
+            {/*<TableHead>FetchUrl</TableHead>*/}
+            <TableHead>Category</TableHead>
+            <TableHead>Tags</TableHead>
             <TableHead
               className="cursor-pointer hover:bg-muted/50"
               onClick={() => handleSort("src")}
@@ -319,18 +322,30 @@ export const TempMovieTable = () => {
             // 空数据状态
             <TableRow>
               <TableCell
-                colSpan={7}
+                colSpan={8}
                 className="text-center text-muted-foreground"
               >
-                暂无任务
+                暂无电影
               </TableCell>
             </TableRow>
           ) : (
             sortedTempMovieList.map((movie) => (
               <TableRow key={movie.id}>
                 <TableCell>{movie.id}</TableCell>
-                <TableCell>{movie.title}</TableCell>
-                <TableCell>{movie.fetch_url}</TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-1">
+
+                      <Link to={`/temp-movies/${movie.id}`}>
+                        {movie.title}
+                      </Link>
+
+                  </div>
+                </TableCell>
+                <TableCell>{movie.category.name}</TableCell>
+                <TableCell>
+                  {/*{movie.tags.map((tag) => tag.name).join(", ") || "-"}*/}
+                </TableCell>
+                {/*<TableCell>{movie.fetch_url}</TableCell>*/}
                 <TableCell>{movie.src}</TableCell>
                 <TableCell>{movie.status}</TableCell>
                 <TableCell>
@@ -362,7 +377,7 @@ export const TempMovieTable = () => {
         {/* 表格底部：分页控件 */}
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={6} className="text-center">
+            <TableCell colSpan={8} className="text-center">
               <div className="flex items-center justify-center gap-2">
                 {/* 首页按钮 */}
                 <Button

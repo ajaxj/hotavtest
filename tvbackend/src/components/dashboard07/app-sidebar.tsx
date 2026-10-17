@@ -108,7 +108,18 @@ const data = {
           title: "标签列表",
           url: "/temp/tag-list",
         },
-
+        {
+          title: "TvRes列表",
+          url: "/temp/tvres-list",
+        },
+        {
+          title: "Src2分类列表",
+          url: "/temp/src2/category-list",
+        },
+        {
+          title: "Src2电影列表",
+          url: "/temp/src2/movie-list",
+        },
       ],
     },
     {

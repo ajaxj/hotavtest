@@ -5,6 +5,7 @@ export * from '@/types/sys/fetch-site';
 export * from '@/types/temp/temp-category';
 export * from '@/types/temp/temp-movie';
 export * from '@/types/temp/temp-tag';
+export * from '@/types/temp/temp-tv-res';
 
 
 

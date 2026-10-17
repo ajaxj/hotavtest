@@ -18,9 +18,9 @@ export interface CreateTempCategoryPayload {
 }
 
 
-const fetchTempCategories = async (page:number =0 ,pageSize:number=10):Promise<TempCategoryPage> => {
+const fetchTempCategories = async (page:number =0 ,pageSize:number=10,src:number):Promise<TempCategoryPage> => {
   // 构造请求 URL，后端页码从 1 开始，所以 page + 1
-  const url = `${API_ENDPOINTS.TEMP_CATEGORIES}?page=${page + 1}&size=${pageSize}`
+  const url = `${API_ENDPOINTS.TEMP_CATEGORIES}?page=${page + 1}&size=${pageSize}&src=${src}`
   const response = await apiFetch(url, { method: "GET" })
   if (!response.ok) {
     throw new Error(`获取 Temp 分类列表失败，状态码：${response.status}`)
@@ -31,7 +31,7 @@ const fetchTempCategories = async (page:number =0 ,pageSize:number=10):Promise<T
 
 
 
-export const useTempCategorys = (pageIndex: number, pageSize: number) => {
+export const useTempCategorys = (pageIndex: number, pageSize: number,src:number) => {
   // 任务分页数据状态
   const [data, setData] = useState<TempCategoryPage | null>(null)
   // 加载中状态
@@ -44,7 +44,7 @@ export const useTempCategorys = (pageIndex: number, pageSize: number) => {
     setLoading(true)
     setError(null)
     try {
-      const result = await fetchTempCategories(pageIndex, pageSize)
+      const result = await fetchTempCategories(pageIndex, pageSize,src)
       setData(result)
     } catch (err) {
       setError(err as Error)
@@ -52,7 +52,7 @@ export const useTempCategorys = (pageIndex: number, pageSize: number) => {
       // 无论成功失败，最终都关闭加载状态
       setLoading(false)
     }
-  }, [pageIndex, pageSize])
+  }, [pageIndex, pageSize,src])
 
   // 副作用：在 fetch 函数变化时自动加载数据
   useEffect(() => {

@@ -21,19 +21,11 @@ export const API_ENDPOINTS = {
   FETCH_SITES: `${API_BASE_URL}/v1/fetch_sites`,
 
 
-  TITAN_FB_TEAMS: `${API_BASE_URL}/v1/titan/fb/teams`,
-  TITAN_FB_LEAGUES: `${API_BASE_URL}/v1/titan/fb/leagues`,
-  TITAN_FB_MATCHES: `${API_BASE_URL}/v1/titan/fb/matches`,
-
-  NS_FB_COUNTRIES: `${API_BASE_URL}/v1/ns/fb/countries`,
-  NS_FB_TEAMS: `${API_BASE_URL}/v1/ns/fb/teams`,
-  NS_FB_LEAGUES: `${API_BASE_URL}/v1/ns/fb/leagues`,
-  NS_FB_MATCHES: `${API_BASE_URL}/v1/ns/fb/matches`,
-
 
   TEMP_CATEGORIES: `${API_BASE_URL}/v1/temp/categories`,
   TEMP_TAGS: `${API_BASE_URL}/v1/temp/tags`,
   TEMP_MOVIES: `${API_BASE_URL}/v1/temp/movies`,
+  TEMP_TV_RES: `${API_BASE_URL}/v1/temp/tv/res`,
 }
 
 // API 请求配置选项接口，继承原生 RequestInit

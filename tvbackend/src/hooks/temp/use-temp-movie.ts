@@ -19,10 +19,11 @@ export interface CreateTempMoviePayload {
 
 const fetchTempCategories = async (
   page: number = 0,
-  pageSize: number = 10
+  pageSize: number = 10,
+  src: number =0
 ): Promise<TempMoviePage> => {
   // 构造请求 URL，后端页码从 1 开始，所以 page + 1
-  const url = `${API_ENDPOINTS.TEMP_MOVIES}?page=${page + 1}&size=${pageSize}`
+  const url = `${API_ENDPOINTS.TEMP_MOVIES}?page=${page + 1}&size=${pageSize}&src=${src}`
   const response = await apiFetch(url, { method: "GET" })
   if (!response.ok) {
     throw new Error(`获取 Temp 影片列表失败，状态码：${response.status}`)
@@ -31,7 +32,7 @@ const fetchTempCategories = async (
   return response.json()
 }
 
-export const useTempMovies = (pageIndex: number, pageSize: number) => {
+export const useTempMovies = (pageIndex: number, pageSize: number,src: number) => {
   // 任务分页数据状态
   const [data, setData] = useState<TempMoviePage | null>(null)
   // 加载中状态
@@ -44,7 +45,7 @@ export const useTempMovies = (pageIndex: number, pageSize: number) => {
     setLoading(true)
     setError(null)
     try {
-      const result = await fetchTempCategories(pageIndex, pageSize)
+      const result = await fetchTempCategories(pageIndex, pageSize,src)
       setData(result)
     } catch (err) {
       setError(err as Error)
@@ -152,6 +153,41 @@ export const useUpdateTempMovie = () => {
   )
 
   return { updateTempMovie, loading, error }
+}
+
+const fetchTempMovieDetail = async (id: number): Promise<TempMovie> => {
+  const url = `${API_ENDPOINTS.TEMP_MOVIES}/${id}`
+  const response = await apiFetch(url, { method: "GET" })
+  if (!response.ok) {
+    throw new Error(`获取 Temp 影片详情失败，状态码：${response.status}`)
+  }
+  return response.json()
+}
+
+export const useTempMovieDetail = (id?: number) => {
+  const [data, setData] = useState<TempMovie | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+
+  const fetch = useCallback(async () => {
+    if (id === undefined || id === null) return
+    setLoading(true)
+    setError(null)
+    try {
+      const result = await fetchTempMovieDetail(id)
+      setData(result)
+    } catch (err) {
+      setError(err as Error)
+    } finally {
+      setLoading(false)
+    }
+  }, [id])
+
+  useEffect(() => {
+    fetch()
+  }, [fetch])
+
+  return { data, loading, error, refetch: fetch }
 }
 
 export const useDeleteTempMovie = () => {
