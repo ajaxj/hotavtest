@@ -112,7 +112,7 @@ const data = {
       ],
     },
     {
-      title: "NowScore",
+      title: "NowScore Football",
       url: "#",
       icon: Bot,
       items: [
@@ -136,21 +136,21 @@ const data = {
       ],
     },
     {
-      title: "Demo",
+      title: "NowScore Basketball",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Store",
-          url: "/demo/store",
+          title: "国家列表",
+          url: "/ns/bs/country-list",
         },
         {
-          title: "Table",
-          url: "/demo/table",
+          title: "联赛列表",
+          url: "/ns/bs/league-list",
         },
         {
-          title: "Quantum",
-          url: "#",
+          title: "Team列表",
+          url: "/ns/bs/team-list",
         },
       ],
     },

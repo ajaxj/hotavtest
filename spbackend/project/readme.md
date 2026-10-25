@@ -35,6 +35,7 @@ go build -o spapi
 
 
 本地：http://localhost:42106
+http://127.0.0.1:42106/swagger/index.html
 serv00 marstommy下的： http://gin2.marstommy.serv00.net
 
 ~~~

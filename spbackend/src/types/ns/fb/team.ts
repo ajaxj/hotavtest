@@ -1,11 +1,3 @@
-// {
-//   "id": 594,
-//   "tid": 47011,
-//   "zh": "大猩猩FC",
-//   "gb": "大猩猩FC",
-//   "en": "Gorilla FC",
-//   "image": ""
-// },
 
 interface NsFbTeam {
   id: number

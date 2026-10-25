@@ -1,12 +1,4 @@
-// {
-//   "id": 127,
-//   "cid": 110,
-//   "zh": "沙滩赛事",
-//   "gb": "",
-//   "en": "",
-//   "image": "images/164454816728.png",
-//   "tag": 0
-// },
+
 
 interface NsFbCountry {
   id: number

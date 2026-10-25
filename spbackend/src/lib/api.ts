@@ -14,7 +14,10 @@ export const API_ENDPOINTS = {
   NS_FB_TEAMS: `${API_BASE_URL}/v1/ns/fb/teams`,
   NS_FB_LEAGUES: `${API_BASE_URL}/v1/ns/fb/leagues`,
   NS_FB_MATCHES: `${API_BASE_URL}/v1/ns/fb/matches`,
-
+  NS_BS_COUNTRIES: `${API_BASE_URL}/v1/ns/bs/countries`,
+  NS_BS_TEAMS: `${API_BASE_URL}/v1/ns/bs/teams`,
+  NS_BS_LEAGUES: `${API_BASE_URL}/v1/ns/bs/leagues`,
+  NS_BS_MATCHES: `${API_BASE_URL}/v1/ns/bs/matches`,
 
 }
 

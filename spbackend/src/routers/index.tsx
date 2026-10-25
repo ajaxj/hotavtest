@@ -12,6 +12,9 @@ import NsLeagueList from "@/pages/ns/fb/LeagueList.tsx"
 import TeamList from "@/pages/titan/fb/TeamList.tsx"
 import MatchList from "@/pages/titan/fb/MatchList.tsx"
 import CountryList from "@/pages/ns/fb/CountryList.tsx"
+import BsCountryList from "@/pages/ns/bs/CountryList.tsx"
+import BsLeagueList from "@/pages/ns/bs/LeagueList.tsx"
+import BsTeamList from "@/pages/ns/bs/TeamList.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -26,7 +29,7 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           // <ProtectedRoute>
-            <App />
+          <App />
           // </ProtectedRoute>
         ),
       },
@@ -34,7 +37,7 @@ export const router = createBrowserRouter([
         path: "/about",
         element: (
           // <ProtectedRoute>
-            <About />
+          <About />
           // </ProtectedRoute>
         ),
       },
@@ -42,7 +45,7 @@ export const router = createBrowserRouter([
         path: "/sys/task-list",
         element: (
           // <ProtectedRoute>
-            <TaskList />
+          <TaskList />
           // </ProtectedRoute>
         ),
       },
@@ -50,7 +53,7 @@ export const router = createBrowserRouter([
         path: "/sys/log-info-list",
         element: (
           // <ProtectedRoute>
-            <LogInfoList />
+          <LogInfoList />
           // </ProtectedRoute>
         ),
       },
@@ -58,7 +61,7 @@ export const router = createBrowserRouter([
         path: "/titan/fb/league-list",
         element: (
           // <ProtectedRoute>
-            <TitanLeagueList />
+          <TitanLeagueList />
           // </ProtectedRoute>
         ),
       },
@@ -66,7 +69,7 @@ export const router = createBrowserRouter([
         path: "/titan/fb/team-list",
         element: (
           // <ProtectedRoute>
-            <TeamList />
+          <TeamList />
           // </ProtectedRoute>
         ),
       },
@@ -74,7 +77,7 @@ export const router = createBrowserRouter([
         path: "/titan/fb/match-list",
         element: (
           // <ProtectedRoute>
-            <MatchList />
+          <MatchList />
           // </ProtectedRoute>
         ),
       },
@@ -82,7 +85,7 @@ export const router = createBrowserRouter([
         path: "/ns/fb/country-list",
         element: (
           // <ProtectedRoute>
-            <CountryList />
+          <CountryList />
           // </ProtectedRoute>
         ),
       },
@@ -90,7 +93,7 @@ export const router = createBrowserRouter([
         path: "/ns/fb/league-list",
         element: (
           // <ProtectedRoute>
-            <NsLeagueList />
+          <NsLeagueList />
           // </ProtectedRoute>
         ),
       },
@@ -98,7 +101,7 @@ export const router = createBrowserRouter([
         path: "/ns/fb/team-list",
         element: (
           // <ProtectedRoute>
-            <TeamList />
+          <TeamList />
           // </ProtectedRoute>
         ),
       },
@@ -106,7 +109,31 @@ export const router = createBrowserRouter([
         path: "/ns/fb/match-list",
         element: (
           // <ProtectedRoute>
-            <MatchList />
+          <MatchList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/ns/bs/country-list",
+        element: (
+          // <ProtectedRoute>
+          <BsCountryList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/ns/bs/league-list",
+        element: (
+          // <ProtectedRoute>
+          <BsLeagueList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/ns/bs/team-list",
+        element: (
+          // <ProtectedRoute>
+          <BsTeamList />
           // </ProtectedRoute>
         ),
       },

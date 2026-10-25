@@ -8,5 +8,9 @@ export * from './ns/fb/country.ts';
 export * from './ns/fb/match';
 export * from './ns/fb/team';
 export * from './ns/fb/league';
+export * from './ns/bs/country.ts';
+export * from './ns/bs/team.ts';
+export * from './ns/bs/league.ts';
+
 
 
