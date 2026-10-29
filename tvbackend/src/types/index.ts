@@ -6,6 +6,9 @@ export * from '@/types/temp/temp-category';
 export * from '@/types/temp/temp-movie';
 export * from '@/types/temp/temp-tag';
 export * from '@/types/temp/temp-tv-res';
+export * from '@/types/mv/category';
+export * from '@/types/mv/movie';
+export * from '@/types/mv/tag';
 
 
 

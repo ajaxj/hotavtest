@@ -142,21 +142,21 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "正式Movie",
       url: "#",
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: "分类列表",
+          url: "/mv/category-list",
         },
         {
-          title: "Get Started",
-          url: "#",
+          title: "电影列表",
+          url: "/mv/movie-list",
         },
         {
-          title: "Tutorials",
-          url: "#",
+          title: "标签列表",
+          url: "/mv/tag-list",
         },
         {
           title: "Changelog",

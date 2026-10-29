@@ -20,7 +20,9 @@ export const API_ENDPOINTS = {
   LOG_INFOS: `${API_BASE_URL}/v1/log_infos`,
   FETCH_SITES: `${API_BASE_URL}/v1/fetch_sites`,
 
-
+  CATEGORIES: `${API_BASE_URL}/v1/categories`,
+  MOVIES: `${API_BASE_URL}/v1/movies`,
+  TAGS: `${API_BASE_URL}/v1/tags`,
 
   TEMP_CATEGORIES: `${API_BASE_URL}/v1/temp/categories`,
   TEMP_TAGS: `${API_BASE_URL}/v1/temp/tags`,

@@ -16,6 +16,9 @@ import FetchSiteList from "@/pages/sys/FetchSiteList.tsx"
 import Setting from "@/pages/Setting.tsx"
 import TempTvResList from "@/pages/temp/TempTvResList.tsx"
 import TempMovieDetail from "@/pages/temp/TempMovieDetail.tsx"
+import CategoryList from "@/pages/mv/CategoryList.tsx"
+import MovieList from "@/pages/mv/MovieList.tsx"
+import TagList from "@/pages/mv/TagList.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -75,10 +78,26 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/temp/category-list",
+        path: "/mv/category-list",
         element: (
           // <ProtectedRoute>
-            <TempCategoryList />
+            <CategoryList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/mv/movie-list",
+        element: (
+          // <ProtectedRoute>
+            <MovieList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/mv/tag-list",
+        element: (
+          // <ProtectedRoute>
+            <TagList />
           // </ProtectedRoute>
         ),
       },
