@@ -155,24 +155,24 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "文章",
       url: "#",
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
+          title: "文章列表",
+          url: "/article/article-list",
+        },
+        {
+          title: "分类列表",
+          url: "/article/category-list",
+        },
+        {
+          title: "更新文章",
           url: "#",
         },
         {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
+          title: "删除文章",
           url: "#",
         },
       ],

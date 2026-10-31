@@ -4,9 +4,12 @@ export const API_BASE_URL = "http://localhost:42106";
 
 // API 接口端点常量
 export const API_ENDPOINTS = {
+  CATEGORIES: `${API_BASE_URL}/v1/categories`,
+  ARTICLES: `${API_BASE_URL}/v1/articles`,
   LOGIN: `${API_BASE_URL}/auth/login`,
   TASKS: `${API_BASE_URL}/v1/tasks`,
   LOG_INFOS: `${API_BASE_URL}/v1/log_infos`,
+  FETCH_SITES: `${API_BASE_URL}/v1/fetch_sites`,
   TITAN_FB_TEAMS: `${API_BASE_URL}/v1/titan/fb/teams`,
   TITAN_FB_LEAGUES: `${API_BASE_URL}/v1/titan/fb/leagues`,
   TITAN_FB_MATCHES: `${API_BASE_URL}/v1/titan/fb/matches`,

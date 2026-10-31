@@ -15,6 +15,9 @@ import CountryList from "@/pages/ns/fb/CountryList.tsx"
 import BsCountryList from "@/pages/ns/bs/CountryList.tsx"
 import BsLeagueList from "@/pages/ns/bs/LeagueList.tsx"
 import BsTeamList from "@/pages/ns/bs/TeamList.tsx"
+import ArticleList from "@/pages/article/ArticleList.tsx"
+import CategoryList from "@/pages/article/CategoryList.tsx"
+import FetchSiteList from "@/pages/sys/FetchSiteList.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +45,22 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/article/article-list",
+        element: (
+          // <ProtectedRoute>
+          <ArticleList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/article/category-list",
+        element: (
+          // <ProtectedRoute>
+          <CategoryList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
         path: "/sys/task-list",
         element: (
           // <ProtectedRoute>
@@ -54,6 +73,14 @@ export const router = createBrowserRouter([
         element: (
           // <ProtectedRoute>
           <LogInfoList />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/sys/fetch-site-list",
+        element: (
+          // <ProtectedRoute>
+          <FetchSiteList />
           // </ProtectedRoute>
         ),
       },
