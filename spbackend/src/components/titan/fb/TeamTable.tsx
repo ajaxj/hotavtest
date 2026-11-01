@@ -5,7 +5,7 @@ import {
   useCreateTitanTeam,
   useUpdateTitanTeam,
 } from "@/hooks/titan/fb/use-team"
-import type { TitanTeam } from "@/types"
+import type { TitanFbTeam} from "@/types"
 // UI 组件：表格相关
 import {
   Table,
@@ -69,7 +69,7 @@ export const TeamTable = () => {
   // ======== 弹窗状态 ========
   const [createDialogOpen, setCreateDialogOpen] = useState(false) // 创建球队弹窗开关
   const [editDialogOpen, setEditDialogOpen] = useState(false) // 编辑球队弹窗开关
-  const [editingTeam, setEditingTeam] = useState<TitanTeam | null>(null) // 当前编辑的球队对象
+  const [editingTeam, setEditingTeam] = useState<TitanFbTeam | null>(null) // 当前编辑的球队对象
 
   // ======== 创建球队表单状态 ========
   const [newTitanTeamTid, setNewTitanTeamTid] = useState(0) // 新球队ID
@@ -171,7 +171,7 @@ export const TeamTable = () => {
    * 打开编辑弹窗
    * 使用对象展开创建任务副本，避免直接修改原数据
    */
-  const openEditDialog = (team: TitanTeam) => {
+  const openEditDialog = (team: TitanFbTeam) => {
     setEditingTeam({ ...team })
     setEditDialogOpen(true)
   }
