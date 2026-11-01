@@ -1,6 +1,6 @@
 // API 基础地址
-export const API_BASE_URL = "http://localhost:42106";
-// export const API_BASE_URL = "http://gin2.marstommy.serv00.net"
+// export const API_BASE_URL = "http://localhost:2766";
+export const API_BASE_URL = "https://api.zhibo30.com"
 
 // API 接口端点常量
 export const API_ENDPOINTS = {
