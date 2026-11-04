@@ -230,28 +230,32 @@ export const CategoryTable = () => {
               </span>
             ) : (
               <span className="inline-flex items-center rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-                子分类 → #{category.parent}
+                子分类 -&gt; #{category.parent}
               </span>
             )}
           </TableCell>
           <TableCell>
             <div className="flex gap-1">
-              <Button
-                size="icon-xs"
-                variant="ghost"
-                onClick={() => openEditDialog(category)}
-                disabled={updating}
-              >
-                <PencilIcon className="size-3" />
-              </Button>
-              <Button
-                size="icon-xs"
-                variant="ghost"
-                onClick={() => handleDeleteCategory(category.id)}
-                disabled={deleting}
-              >
-                <TrashIcon className="size-3" />
-              </Button>
+              {category.parent > 0 && (
+                <>
+                  <Button
+                    size="icon-xs"
+                    variant="ghost"
+                    onClick={() => openEditDialog(category)}
+                    disabled={updating}
+                  >
+                    <PencilIcon className="size-3" />
+                  </Button>
+                  <Button
+                    size="icon-xs"
+                    variant="ghost"
+                    onClick={() => handleDeleteCategory(category.id)}
+                    disabled={deleting}
+                  >
+                    <TrashIcon className="size-3" />
+                  </Button>
+                </>
+              )}
             </div>
           </TableCell>
         </TableRow>

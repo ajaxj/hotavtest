@@ -266,21 +266,10 @@ export const MovieTable = () => {
               />
             </TableHead>
             <TableHead>Name</TableHead>
-            {/*<TableHead>FetchUrl</TableHead>*/}
+
             <TableHead>Category</TableHead>
             <TableHead>Tags</TableHead>
-            {/*<TableHead*/}
-            {/*  className="cursor-pointer hover:bg-muted/50"*/}
-            {/*  onClick={() => handleSort("src")}*/}
-            {/*>*/}
-            {/*  Src{" "}*/}
-            {/*  <SortIcon*/}
-            {/*    field="src"*/}
-            {/*    sortField={sortField}*/}
-            {/*    sortOrder={sortOrder}*/}
-            {/*  />*/}
-            {/*</TableHead>*/}
-            {/*<TableHead>Status</TableHead>*/}
+
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
